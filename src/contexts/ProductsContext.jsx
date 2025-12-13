@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const ProductsContext = createContext();
 
+/* eslint-disable react-refresh/only-export-components */
 export const useProducts = () => {
   const context = useContext(ProductsContext);
   if (!context) {
