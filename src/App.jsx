@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
+import Portfolio from "./pages/Portfolio";
 
 // Layout component for routes that need Header and Cart
 const MainLayout = ({ children }) => {
@@ -19,6 +20,10 @@ const MainLayout = ({ children }) => {
       <Cart />
     </div>
   );
+};
+
+const PortfolioLayout = ({ children }) => {
+  return <div className="min-h-screen bg-gray-50">{children}</div>;
 };
 
 function App() {
@@ -38,6 +43,14 @@ function App() {
                   <MainLayout>
                     <HomePage />
                   </MainLayout>
+                }
+              />
+              <Route
+                path="/portfolio"
+                element={
+                  <PortfolioLayout>
+                    <Portfolio />
+                  </PortfolioLayout>
                 }
               />
               <Route

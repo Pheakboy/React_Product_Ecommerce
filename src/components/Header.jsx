@@ -17,6 +17,10 @@ const Header = () => {
     }
   };
 
+  const handleClickPortfolio = () => {
+    navigate("/portfolio");
+  };
+
   return (
     <header className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4">
@@ -32,9 +36,10 @@ const Header = () => {
               className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-all"
             >
               <LogIn className="w-5 h-5" />
-              <span>{isAuthenticated ? (user?.name || "Dashboard") : "Login"}</span>
+              <span>
+                {isAuthenticated ? user?.name || "Dashboard" : "Login"}
+              </span>
             </button>
-
             <button
               onClick={() => setShowCart(true)}
               className="relative flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-all"
@@ -46,6 +51,13 @@ const Header = () => {
                   {cartCount}
                 </span>
               )}
+            </button>
+
+            <button
+              onClick={handleClickPortfolio}
+              className="relative flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-all"
+            >
+              Portfolio
             </button>
           </div>
         </div>
