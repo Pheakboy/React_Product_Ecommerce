@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { ProductsProvider } from "./contexts/ProductsContext";
+import { PortfolioProvider } from "./contexts/PortfolioContext";
 import Header from "./components/Header";
 import Cart from "./components/Cart";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -32,46 +33,48 @@ function App() {
       <AuthProvider>
         <ProductsProvider>
           <CartProvider>
-            <Routes>
-              {/* Public login route without header */}
-              <Route path="/login" element={<LoginPage />} />
+            <PortfolioProvider>
+              <Routes>
+                {/* Public login route without header */}
+                <Route path="/login" element={<LoginPage />} />
 
-              {/* Public routes with header and cart */}
-              <Route
-                path="/"
-                element={
-                  <MainLayout>
-                    <HomePage />
-                  </MainLayout>
-                }
-              />
-              <Route
-                path="/portfolio"
-                element={
-                  <PortfolioLayout>
-                    <Portfolio />
-                  </PortfolioLayout>
-                }
-              />
-              <Route
-                path="/product/:id"
-                element={
-                  <MainLayout>
-                    <ProductDetailPage />
-                  </MainLayout>
-                }
-              />
+                {/* Public routes with header and cart */}
+                <Route
+                  path="/"
+                  element={
+                    <MainLayout>
+                      <HomePage />
+                    </MainLayout>
+                  }
+                />
+                <Route
+                  path="/portfolio"
+                  element={
+                    <PortfolioLayout>
+                      <Portfolio />
+                    </PortfolioLayout>
+                  }
+                />
+                <Route
+                  path="/product/:id"
+                  element={
+                    <MainLayout>
+                      <ProductDetailPage />
+                    </MainLayout>
+                  }
+                />
 
-              {/* Protected dashboard route */}
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+                {/* Protected dashboard route */}
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </PortfolioProvider>
           </CartProvider>
         </ProductsProvider>
       </AuthProvider>

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { usePortfolio } from "../contexts/PortfolioContext";
+import Loading from "../components/Loading";
 
 const Portfolio = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { portfolioItems = [], loading, error } = usePortfolio();
 
+  // Default stats
   const stats = [
     { label: "Projects Completed", value: "25+" },
     { label: "Happy Clients", value: "40+" },
@@ -10,50 +14,81 @@ const Portfolio = () => {
     { label: "Years Experience", value: "5+" },
   ];
 
-  const projects = [
-    {
-      title: "AI Task Manager",
-      description: "Smart task management with AI-powered prioritization and analytics",
-      tech: ["React", "Node.js", "MongoDB", "OpenAI"],
-      link: "#",
-      gradient: "from-blue-500 to-cyan-500",
-      stats: "15K+ Users",
-    },
-    {
-      title: "Design System",
-      description: "Comprehensive component library with accessible UI patterns",
-      tech: ["React", "Tailwind", "Storybook", "TypeScript"],
-      link: "#",
-      gradient: "from-purple-500 to-pink-500",
-      stats: "500+ Components",
-    },
-    {
-      title: "Real-time Analytics",
-      description: "Live data visualization dashboard with WebSocket integration",
-      tech: ["Vue", "D3.js", "Firebase", "Chart.js"],
-      link: "#",
-      gradient: "from-orange-500 to-red-500",
-      stats: "1M+ Data Points",
-    },
-    {
-      title: "Mobile App",
-      description: "Cross-platform fitness tracking application",
-      tech: ["React Native", "Redux", "Firebase", "Expo"],
-      link: "#",
-      gradient: "from-green-500 to-teal-500",
-      stats: "50K+ Downloads",
-    },
-  ];
+  // Use Firebase data if available, otherwise use defaults
+  const projects =
+    portfolioItems && portfolioItems.length > 0
+      ? portfolioItems
+      : [
+          {
+            title: "AI Task Manager",
+            description:
+              "Smart task management with AI-powered prioritization and analytics",
+            tech: ["React", "Node.js", "MongoDB", "OpenAI"],
+            link: "#",
+            gradient: "from-blue-500 to-cyan-500",
+            stats: "15K+ Users",
+          },
+          {
+            title: "Design System",
+            description:
+              "Comprehensive component library with accessible UI patterns",
+            tech: ["React", "Tailwind", "Storybook", "TypeScript"],
+            link: "#",
+            gradient: "from-purple-500 to-pink-500",
+            stats: "500+ Components",
+          },
+          {
+            title: "Real-time Analytics",
+            description:
+              "Live data visualization dashboard with WebSocket integration",
+            tech: ["Vue", "D3.js", "Firebase", "Chart.js"],
+            link: "#",
+            gradient: "from-orange-500 to-red-500",
+            stats: "1M+ Data Points",
+          },
+          {
+            title: "Mobile App",
+            description: "Cross-platform fitness tracking application",
+            tech: ["React Native", "Redux", "Firebase", "Expo"],
+            link: "#",
+            gradient: "from-green-500 to-teal-500",
+            stats: "50K+ Downloads",
+          },
+        ];
+
+  // Show loading state if data is being fetched
+  if (loading) {
+    return <Loading />;
+  }
+
+  // Show error if there's an issue
+  if (error) {
+    console.error(error);
+  }
 
   const skills = [
     {
       category: "Frontend",
-      items: ["React", "Vue.js", "Tailwind CSS", "TypeScript", "Next.js", "Framer Motion"],
+      items: [
+        "React",
+        "Vue.js",
+        "Tailwind CSS",
+        "TypeScript",
+        "Next.js",
+        "Framer Motion",
+      ],
       icon: "💻",
     },
     {
       category: "Backend",
-      items: ["Node.js", "Python", "PostgreSQL", "MongoDB", "GraphQL", "REST API"],
+      items: [
+        "Node.js",
+        "Python",
+        "PostgreSQL",
+        "MongoDB",
+        "GraphQL",
+        "REST API",
+      ],
       icon: "🚀",
     },
     {
@@ -68,7 +103,8 @@ const Portfolio = () => {
       role: "Senior Full Stack Developer",
       company: "Tech Innovations Inc",
       duration: "2022 - Present",
-      description: "Leading frontend architecture and mentoring junior developers",
+      description:
+        "Leading frontend architecture and mentoring junior developers",
     },
     {
       role: "Full Stack Developer",
@@ -97,7 +133,9 @@ const Portfolio = () => {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl">
         <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-sm font-bold">D</div>
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-sm font-bold">
+              D
+            </div>
             Dev
           </div>
 
@@ -113,17 +151,19 @@ const Portfolio = () => {
               menuOpen ? "flex flex-col" : "hidden"
             } md:flex-row p-6 md:p-0 border-b md:border-0 border-slate-800 backdrop-blur-xl`}
           >
-            {["Home", "Projects", "Experience", "Skills", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                className="text-slate-300 hover:text-white transition relative group"
-              >
-                {item}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
-              </a>
-            ))}
+            {["Home", "Projects", "Experience", "Skills", "Contact"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-slate-300 hover:text-white transition relative group"
+                >
+                  {item}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+                </a>
+              )
+            )}
           </div>
         </nav>
       </header>
@@ -144,7 +184,9 @@ const Portfolio = () => {
             <br />& Designer
           </h1>
           <p className="text-xl text-slate-400 mb-12 max-w-3xl leading-relaxed">
-            I create beautiful, responsive web experiences with cutting-edge technologies. Specializing in React, modern UI/UX, and full-stack development that transforms ideas into reality.
+            I create beautiful, responsive web experiences with cutting-edge
+            technologies. Specializing in React, modern UI/UX, and full-stack
+            development that transforms ideas into reality.
           </p>
           <div className="flex flex-wrap gap-4 mb-16">
             <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-105">
@@ -158,8 +200,13 @@ const Portfolio = () => {
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat, i) => (
-              <div key={i} className="bg-slate-800/30 border border-slate-700/50 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-2xl font-bold text-blue-400 mb-1">{stat.value}</p>
+              <div
+                key={i}
+                className="bg-slate-800/30 border border-slate-700/50 rounded-lg p-4 backdrop-blur-sm"
+              >
+                <p className="text-2xl font-bold text-blue-400 mb-1">
+                  {stat.value}
+                </p>
                 <p className="text-sm text-slate-400">{stat.label}</p>
               </div>
             ))}
@@ -168,13 +215,18 @@ const Portfolio = () => {
       </section>
 
       {/* Featured Projects Section */}
-      <section id="projects" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <section
+        id="projects"
+        className="relative z-10 max-w-7xl mx-auto px-6 py-20"
+      >
         <div className="mb-16">
           <h2 className="text-5xl font-bold mb-4 flex items-center gap-3">
             <span className="text-3xl">💼</span>
             Featured Projects
           </h2>
-          <p className="text-slate-400 text-lg">Innovative solutions I've built</p>
+          <p className="text-slate-400 text-lg">
+            Innovative solutions I've built
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -187,25 +239,30 @@ const Portfolio = () => {
                 className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition duration-300`}
               ></div>
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl -z-10 group-hover:scale-150 transition duration-300"></div>
-              
+
               <div className="relative z-1">
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-sm text-blue-400 font-medium">{project.stats}</p>
+                    <p className="text-sm text-blue-400 font-medium">
+                      {project.stats}
+                    </p>
                   </div>
-                  <span className="text-slate-400 group-hover:text-blue-400 transition transform group-hover:rotate-45 text-2xl">↗</span>
+                  <span className="text-slate-400 group-hover:text-blue-400 transition transform group-hover:rotate-45 text-2xl">
+                    ↗
+                  </span>
                 </div>
                 <p className="text-slate-400 mb-6">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, j) => (
-                    <span
-                      key={j}
-                      className="px-3 py-1 bg-slate-700/50 text-slate-300 text-xs rounded-full border border-slate-600/50 backdrop-blur-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {project.tech &&
+                    project.tech.map((tech, j) => (
+                      <span
+                        key={j}
+                        className="px-3 py-1 bg-slate-700/50 text-slate-300 text-xs rounded-full border border-slate-600/50 backdrop-blur-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                 </div>
               </div>
             </div>
@@ -214,7 +271,10 @@ const Portfolio = () => {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <section
+        id="experience"
+        className="relative z-10 max-w-7xl mx-auto px-6 py-20"
+      >
         <div className="mb-16">
           <h2 className="text-5xl font-bold mb-4 flex items-center gap-3">
             <span className="text-3xl">🎯</span>
@@ -234,7 +294,9 @@ const Portfolio = () => {
                   <h3 className="text-xl font-bold mb-1">{exp.role}</h3>
                   <p className="text-blue-400 font-medium">{exp.company}</p>
                 </div>
-                <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full w-fit">{exp.duration}</span>
+                <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full w-fit">
+                  {exp.duration}
+                </span>
               </div>
               <p className="text-slate-400">{exp.description}</p>
             </div>
@@ -243,7 +305,10 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <section
+        id="skills"
+        className="relative z-10 max-w-7xl mx-auto px-6 py-20"
+      >
         <div className="mb-16">
           <h2 className="text-5xl font-bold mb-4 flex items-center gap-3">
             <span className="text-3xl">⚡</span>
@@ -278,13 +343,19 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <section
+        id="contact"
+        className="relative z-10 max-w-7xl mx-auto px-6 py-20"
+      >
         <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-slate-700/50 rounded-3xl p-12 md:p-20 text-center overflow-hidden backdrop-blur-sm">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 -z-10"></div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">Let's Create Something Amazing</h2>
+
+          <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            Let's Create Something Amazing
+          </h2>
           <p className="text-slate-400 mb-10 max-w-2xl mx-auto text-lg">
-            Have a project in mind? I'd love to collaborate and bring your ideas to life.
+            Have a project in mind? I'd love to collaborate and bring your ideas
+            to life.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition flex items-center justify-center gap-2 hover:scale-105 transform">
@@ -303,17 +374,33 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="font-bold mb-4 flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">D</div>
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
+                  D
+                </div>
                 DevPortfolio
               </h3>
-              <p className="text-slate-400">Building beautiful digital experiences</p>
+              <p className="text-slate-400">
+                Building beautiful digital experiences
+              </p>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2 text-slate-400">
-                <a href="#projects" className="block hover:text-white transition">Projects</a>
-                <a href="#experience" className="block hover:text-white transition">Experience</a>
-                <a href="#skills" className="block hover:text-white transition">Skills</a>
+                <a
+                  href="#projects"
+                  className="block hover:text-white transition"
+                >
+                  Projects
+                </a>
+                <a
+                  href="#experience"
+                  className="block hover:text-white transition"
+                >
+                  Experience
+                </a>
+                <a href="#skills" className="block hover:text-white transition">
+                  Skills
+                </a>
               </div>
             </div>
             <div>
@@ -331,12 +418,16 @@ const Portfolio = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="border-t border-slate-800/50 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm gap-4">
             <p>© 2024 DevPortfolio. All rights reserved.</p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-white transition">Privacy</a>
-              <a href="#" className="hover:text-white transition">Terms</a>
+              <a href="#" className="hover:text-white transition">
+                Privacy
+              </a>
+              <a href="#" className="hover:text-white transition">
+                Terms
+              </a>
             </div>
           </div>
         </div>
