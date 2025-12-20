@@ -62,7 +62,11 @@ const ProductDetailPage = () => {
     );
   }
 
-  const images = product.images || ["https://via.placeholder.com/500"];
+  // Use only API images with safe fallback
+  const images =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.images?.[0] || "https://via.placeholder.com/500"];
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);

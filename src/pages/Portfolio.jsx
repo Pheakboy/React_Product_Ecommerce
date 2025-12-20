@@ -121,7 +121,7 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-black min-h-screen text-white overflow-hidden">
+    <div className="bg-linear-to-br from-slate-950 via-slate-900 to-black min-h-screen text-white overflow-hidden">
       {/* Animated background elements */}
       <div className="fixed inset-0 pointer-events-none -z-20">
         <div className="absolute top-20 left-10 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob"></div>
@@ -132,8 +132,8 @@ const Portfolio = () => {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl">
         <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-sm font-bold">
+          <div className="text-2xl font-bold bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center text-sm font-bold">
               D
             </div>
             Dev
@@ -147,9 +147,9 @@ const Portfolio = () => {
           </button>
 
           <div
-            className={`absolute md:static top-16 left-0 right-0 md:right-auto bg-slate-950/95 md:bg-transparent md:flex gap-8 ${
+            className={`absolute md:static top-16 left-0 right-0 md:right-auto md:bg-transparent md:flex gap-8 ${
               menuOpen ? "flex flex-col" : "hidden"
-            } md:flex-row p-6 md:p-0 border-b md:border-0 border-slate-800 backdrop-blur-xl`}
+            } md:flex-row p-6 md:p-0 border-b md:border-0`}
           >
             {["Home", "Projects", "Experience", "Skills", "Contact"].map(
               (item) => (
@@ -160,7 +160,7 @@ const Portfolio = () => {
                   className="text-slate-300 hover:text-white transition relative group"
                 >
                   {item}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
                 </a>
               )
             )}
@@ -169,16 +169,16 @@ const Portfolio = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 flex items-center min-h-screen mt-16">
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-20 flex items-center min-h-screen mt-16">
         <div className="w-full">
           <div className="mb-6 inline-block">
-            <span className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 text-blue-300 text-sm font-medium backdrop-blur-sm">
+            <span className="px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 text-blue-300 text-sm font-medium backdrop-blur-sm">
               ✨ Welcome to my portfolio
             </span>
           </div>
           <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
             Creative <br />
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Developer
             </span>
             <br />& Designer
@@ -189,7 +189,7 @@ const Portfolio = () => {
             development that transforms ideas into reality.
           </p>
           <div className="flex flex-wrap gap-4 mb-16">
-            <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-105">
+            <button className="px-8 py-4 bg-linear-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-105">
               View My Work →
             </button>
             <button className="px-8 py-4 border border-slate-600 rounded-lg font-semibold hover:bg-slate-800 transition backdrop-blur-sm">
@@ -236,9 +236,9 @@ const Portfolio = () => {
               className="group relative bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600 transition overflow-hidden backdrop-blur-sm cursor-pointer hover:shadow-2xl hover:shadow-blue-500/10"
             >
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition duration-300`}
+                className={`absolute inset-0 bg-linear-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition duration-300`}
               ></div>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl -z-10 group-hover:scale-150 transition duration-300"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl -z-10 group-hover:scale-150 transition duration-300"></div>
 
               <div className="relative z-1">
                 <div className="flex justify-between items-start mb-6">
@@ -287,7 +287,7 @@ const Portfolio = () => {
           {experience.map((exp, i) => (
             <div
               key={i}
-              className="group relative bg-gradient-to-r from-slate-800/30 to-slate-900/30 border border-slate-700/50 rounded-xl p-6 hover:border-slate-600 transition backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/10"
+              className="group relative bg-linear-to-r from-slate-800/30 to-slate-900/30 border border-slate-700/50 rounded-xl p-6 hover:border-slate-600 transition backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/10"
             >
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-2">
                 <div>
@@ -321,7 +321,7 @@ const Portfolio = () => {
           {skills.map((skill, i) => (
             <div
               key={i}
-              className="group bg-gradient-to-br from-slate-800/40 to-slate-900/40 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600 transition backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/10"
+              className="group bg-linear-to-br from-slate-800/40 to-slate-900/40 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600 transition backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/10"
             >
               <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
                 <span className="text-2xl">{skill.icon}</span>
@@ -347,8 +347,8 @@ const Portfolio = () => {
         id="contact"
         className="relative z-10 max-w-7xl mx-auto px-6 py-20"
       >
-        <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-slate-700/50 rounded-3xl p-12 md:p-20 text-center overflow-hidden backdrop-blur-sm">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 -z-10"></div>
+        <div className="relative bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-slate-700/50 rounded-3xl p-12 md:p-20 text-center overflow-hidden backdrop-blur-sm">
+          <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-purple-500/5 -z-10"></div>
 
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
             Let's Create Something Amazing
@@ -358,7 +358,7 @@ const Portfolio = () => {
             to life.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition flex items-center justify-center gap-2 hover:scale-105 transform">
+            <button className="px-8 py-4 bg-linear-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition flex items-center justify-center gap-2 hover:scale-105 transform">
               ✉️ Send Me an Email
             </button>
             <button className="px-8 py-4 border border-slate-600 rounded-lg font-semibold hover:bg-slate-800 transition">
@@ -374,7 +374,7 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="font-bold mb-4 flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
+                <div className="w-6 h-6 rounded-lg bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
                   D
                 </div>
                 DevPortfolio

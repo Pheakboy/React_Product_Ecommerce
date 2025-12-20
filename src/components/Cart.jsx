@@ -1,7 +1,51 @@
 import { X, Trash2, Plus, Minus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 
+const CartWrapper = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+  }
+
+  .cart-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+    animation: slideInRight 0.3s ease-out;
+
+    @media (max-width: 640px) {
+      max-width: 100%;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+`;
+
 const Cart = () => {
+  const navigate = useNavigate();
   const {
     cart,
     showCart,
@@ -16,8 +60,9 @@ const Cart = () => {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end md:items-center justify-center">
-      <div className="bg-white rounded-t-2xl md:rounded-2xl w-full md:max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+    <CartWrapper onClick={() => setShowCart(false)}>
+      <div className="backdrop" />
+      <div className="cart-panel" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-2xl font-bold">Shopping Cart</h2>
           <button
@@ -104,7 +149,13 @@ const Cart = () => {
                 >
                   Clear Cart
                 </button>
-                <button className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <button
+                  onClick={() => {
+                    setShowCart(false);
+                    navigate("/checkout");
+                  }}
+                  className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                >
                   Checkout
                 </button>
               </div>
@@ -112,7 +163,7 @@ const Cart = () => {
           </>
         )}
       </div>
-    </div>
+    </CartWrapper>
   );
 };
 

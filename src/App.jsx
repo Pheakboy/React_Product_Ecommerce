@@ -11,6 +11,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import Portfolio from "./pages/Portfolio";
+import CheckoutPage from "./pages/CheckoutPage";
 
 // Layout component for routes that need Header and Cart
 const MainLayout = ({ children }) => {
@@ -24,7 +25,13 @@ const MainLayout = ({ children }) => {
 };
 
 const PortfolioLayout = ({ children }) => {
-  return <div className="min-h-screen bg-gray-50">{children}</div>;
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      {children}
+      <Cart />
+    </div>
+  );
 };
 
 function App() {
@@ -71,6 +78,16 @@ function App() {
                     <ProtectedRoute>
                       <Dashboard />
                     </ProtectedRoute>
+                  }
+                />
+
+                {/* Checkout route */}
+                <Route
+                  path="/checkout"
+                  element={
+                    <MainLayout>
+                      <CheckoutPage />
+                    </MainLayout>
                   }
                 />
               </Routes>
